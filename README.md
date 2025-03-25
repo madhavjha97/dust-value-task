@@ -1,66 +1,115 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Dust Value Task
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Overview
+This is a Task **Job Application Portal & HR** where candidates can:
+- **Register and Login**
+- **Apply for jobs**
+- **Track job applications**
+- **View interview status**
+- **Logout securely**
 
-## About Laravel
+## Features
+✅ Candidate Registration & Login (without any package)  
+✅ Apply for jobs with one click  
+✅ View all available job listings  
+✅ Track application status  
+✅ Check interview status (Scheduled, Completed, Rejected, Hired)  
+✅ Tailwind CSS for responsive UI  
+✅ Secure authentication with session handling  
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Installation & Setup
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 1. Clone the Repository
+```sh
+    git clone https://github.com/madhavjha97/dust-value-task.git
+  
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 2. Install Dependencies
+```sh
+    composer install
+    npm install
+```
 
-## Learning Laravel
+### 3. Set Up Environment Variables
+```sh
+    cp .env.example .env
+```
+- Configure your **database settings** in `.env`
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 4. Run Migrations & Seed Data
+```sh
+    php artisan migrate --seed
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 5. Start the Server
+```sh
+    php artisan serve
+```
+Access the app at: **http://127.0.0.1:8000**
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Routes
+| Route | Method | Description |
+|--------|--------|-------------|
+| `/register` | GET | Show candidate registration form |
+| `/register` | POST | Register a new candidate |
+| `/login` | GET | Show login form |
+| `/login` | POST | Authenticate candidate |
+| `/dashboard` | GET | Candidate dashboard |
+| `/apply-job` | POST | Apply for a job |
+| `/logout` | GET | Logout candidate |
 
-## Laravel Sponsors
+## Database Schema
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### **Candidates Table**
+| Column | Type |
+|---------|-------|
+| id | BIGINT (PK) |
+| name | STRING |
+| email | STRING (UNIQUE) |
+| password | STRING |
+| phone | STRING |
+| experience_years | INTEGER |
+| skills | TEXT (nullable) |
+| education | TEXT (nullable) |
+| resume_path | STRING |
+| timestamps | TIMESTAMP |
 
-### Premium Partners
+### **Jobs Table**
+| Column | Type |
+|---------|-------|
+| id | BIGINT (PK) |
+| title | STRING |
+| description | TEXT |
+| company | STRING |
+| location | STRING |
+| salary | DECIMAL |
+| type | ENUM (Full-time, Part-time, Contract, Remote) |
+| timestamps | TIMESTAMP |
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### **Applications Table**
+| Column | Type |
+|---------|-------|
+| id | BIGINT (PK) |
+| job_id | FOREIGN KEY (jobs) |
+| candidate_id | FOREIGN KEY (candidates) |
+| timestamps | TIMESTAMP |
 
-## Contributing
+### **Interviews Table**
+| Column | Type |
+|---------|-------|
+| id | BIGINT (PK) |
+| candidate_id | FOREIGN KEY (candidates) |
+| interview_date | DATETIME |
+| status | ENUM (Scheduled, Completed, Rejected, Hired) |
+| timestamps | TIMESTAMP |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Tech Stack
+- **Backend:** Laravel 10 (PHP 8+)
+- **Frontend:** Blade, Tailwind CSS
+- **Database:** MySQL 
+- **Authentication:** Custom Session-based Auth (No Packages)
+t is open-source and available under the **MIT License**.
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+### **Enjoy Coding! 🚀**
